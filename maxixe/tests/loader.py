@@ -17,3 +17,7 @@ class FeatureFinderTestCase(unittest.TestCase):
             "Developers should be able to import features as code",
         ])
         self.assertEqual(basics.description, expected)
+
+    def test_has_a_scenario_list_with_length_of_scenarios(self):
+        from maxixe.features import basics
+        self.assertEqual(len(basics.scenarios), 1)
