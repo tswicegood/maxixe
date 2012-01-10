@@ -29,7 +29,8 @@ class FeatureFinder(object):
         # A feature is never a top level module, so return immediately
         if path is None:
             return
-        feature_name = "%s.feature" % "/".join(fullname.split(".")[-1:])
+        from .utils import module_to_feature
+        feature_name = module_to_feature(fullname)
         for p in path:
             feature = join(p, feature_name)
             if exists(feature):
