@@ -29,3 +29,7 @@ class FeatureFinderTestCase(unittest.TestCase):
         self.assertTrue(isinstance(scenario, maxixe.Scenario))
         self.assertEqual(scenario.name, "Found feature")
         self.assertEqual(len(scenario.steps), 3)
+
+    def test_feature_has_correct_parent_module(self):
+        from maxixe.features import basics
+        self.assertEqual(basics.__module__, "maxixe.features")

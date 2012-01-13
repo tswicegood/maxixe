@@ -33,7 +33,9 @@ class FeatureLoader(object):
 
     def load_module(self, fullname):
         with open(self.feature) as f:
-            return parser.parse_feature(f.read())
+            mod = parser.parse_feature(f.read())
+            setattr(mod, "__module__", fullname.rsplit(".", 1)[0])
+            return mod
 
 
 def init():
