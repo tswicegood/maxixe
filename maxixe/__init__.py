@@ -18,7 +18,7 @@ def parse_feature(feature_string):
         if l == "":
             break
         description.append(l)
-    scenarios = [1, ]
+    scenarios = [Scenario(), ]
     return FeatureType(name, "\n".join(description), scenarios)
 
 
@@ -46,6 +46,13 @@ class FeatureLoader(object):
     def load_module(self, fullname):
         with open(self.feature) as f:
             return parse_feature(f.read())
+
+
+
+class Scenario(object):
+    def __init__(self):
+        self.name = "Found feature"
+        self.steps = (1, 2, 3, )
 
 
 class FeatureType(ModuleType):

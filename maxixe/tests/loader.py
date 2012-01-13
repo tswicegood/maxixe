@@ -21,3 +21,11 @@ class FeatureFinderTestCase(unittest.TestCase):
     def test_has_a_scenario_list_with_length_of_scenarios(self):
         from maxixe.features import basics
         self.assertEqual(len(basics.scenarios), 1)
+
+    def test_scenario_is_fleshed_out(self):
+        import maxixe
+        from maxixe.features import basics
+        scenario = basics.scenarios[0]
+        self.assertTrue(isinstance(scenario, maxixe.Scenario))
+        self.assertEqual(scenario.name, "Found feature")
+        self.assertEqual(len(scenario.steps), 3)
