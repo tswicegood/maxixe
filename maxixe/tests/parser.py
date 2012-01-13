@@ -1,3 +1,4 @@
+import textwrap
 import unittest
 
 from .. import parser
@@ -48,3 +49,15 @@ class FeatureNameParsingTestCase(unittest.TestCase):
 
     def test_can_parse_feature_with_weird_caps_name(self):
         self.assert_expected_name(parser.parse_feature(leet))
+
+
+class FeatureDescriptionTestCase(unittest.TestCase):
+    def to_description(self, s):
+        return textwrap.dedent(s).strip()
+
+    def test_can_parse_feature_description(self):
+        self.assertEqual(self.to_description("""
+            In order to understand the system under test
+            As a developer and a business user
+            I want to be able to parse features
+        """), parser.parse_feature(basic).description)
