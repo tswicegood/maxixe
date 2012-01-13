@@ -2,7 +2,7 @@ import re
 
 from . import gherkin
 
-feature_match = re.compile(r"^[Ff]eature: (.*)$")
+feature_match = re.compile(r"^Feature: (.*)$", flags=re.I)
 
 
 def parse_feature(feature_string):
