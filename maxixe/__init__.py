@@ -4,22 +4,10 @@ from os.path import join
 import os
 import re
 import sys
-from types import ModuleType
 
-
-feature_match = re.compile(r"^[Ff]eature: (.*)$")
-
-def parse_feature(feature_string):
-    feature_lines = feature_string.split("\n")
-    name = feature_match.match(feature_lines.pop(0)).groups()[0]
-    description = []
-    for l in feature_lines:
-        l = l.strip()
-        if l == "":
-            break
-        description.append(l)
-    scenarios = [Scenario(), ]
-    return FeatureType(name, "\n".join(description), scenarios)
+from . import parser
+from .gherkin import FeatureType
+from .gherkin import Scenario
 
 
 class FeatureFinder(object):
@@ -45,21 +33,7 @@ class FeatureLoader(object):
 
     def load_module(self, fullname):
         with open(self.feature) as f:
-            return parse_feature(f.read())
-
-
-
-class Scenario(object):
-    def __init__(self):
-        self.name = "Found feature"
-        self.steps = (1, 2, 3, )
-
-
-class FeatureType(ModuleType):
-    def __init__(self, name, description, scenarios):
-        self.name = name
-        self.description = description
-        self.scenarios = scenarios
+            return parser.parse_feature(f.read())
 
 
 def init():
