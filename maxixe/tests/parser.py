@@ -3,52 +3,58 @@ import unittest
 
 from .. import parser
 
-basic = """
+
+FEATURES = {
+    "basic": """
 Feature: This is a feature
   In order to understand the system under test
   As a developer and a business user
   I want to be able to parse features
-""".strip()
+""".strip(),
 
-lower = """
+    "lower": """
 feature: This is a feature
   In order to understand the system under test
   As a developer and a business user
   I want to be able to parse features
-""".strip()
+""".strip(),
 
-upper = """
+    "upper": """
 FEATURE: This is a feature
   In order to understand the system under test
   As a developer and a business user
   I want to be able to parse features
-""".strip()
+""".strip(),
 
-leet = """
+    "leet": """
 FeaTuRe: This is a feature
   In order to understand the system under test
   As a developer and a business user
   I want to be able to parse features
-""".strip()
+""".strip(),
+}
 
 
 class FeatureNameParsingTestCase(unittest.TestCase):
     expected = "This is a feature"
 
+    def parse_feature(self, name):
+        return parser.parse_feature(FEATURES[name])
+
     def assert_expected_name(self, feature):
         self.assertEqual(feature.name, self.expected)
 
     def test_can_parse_feature_name(self):
-        self.assert_expected_name(parser.parse_feature(basic))
+        self.assert_expected_name(self.parse_feature("basic"))
 
     def test_can_parse_feature_with_lowercase_name(self):
-        self.assert_expected_name(parser.parse_feature(lower))
+        self.assert_expected_name(self.parse_feature("lower"))
 
     def test_can_parse_feature_with_uppercase_name(self):
-        self.assert_expected_name(parser.parse_feature(upper))
+        self.assert_expected_name(self.parse_feature("upper"))
 
     def test_can_parse_feature_with_weird_caps_name(self):
-        self.assert_expected_name(parser.parse_feature(leet))
+        self.assert_expected_name(self.parse_feature("leet"))
 
 
 class FeatureDescriptionTestCase(unittest.TestCase):
@@ -60,4 +66,59 @@ class FeatureDescriptionTestCase(unittest.TestCase):
             In order to understand the system under test
             As a developer and a business user
             I want to be able to parse features
-        """), parser.parse_feature(basic).description)
+        """), parser.parse_feature(FEATURES["basic"]).description)
+
+SCENARIOS = {
+    "basic": """
+Scenario: Basic scenario
+  Given that I have a few steps
+  When I parse that scenario
+  Then I have a full Scenario object
+""".strip(),
+
+    "lower": """
+scenario: Basic scenario
+  Given that I have a few steps
+  When I parse that scenario
+  Then I have a full Scenario object
+""".strip(),
+
+    "upper": """
+SCENARIO: Basic scenario
+  Given that I have a few steps
+  When I parse that scenario
+  Then I have a full Scenario object
+""".strip(),
+
+    "leet": """
+SCeNaRio: Basic scenario
+  Given that I have a few steps
+  When I parse that scenario
+  Then I have a full Scenario object
+""".strip(),
+}
+
+
+class ScenarioNameParsingTestCase(unittest.TestCase):
+    expected = "Basic scenario"
+    expected_feature = parser.parse_feature(FEATURES["basic"])
+
+    def parse_scenario(self, name):
+        return parser.parse_scenario(SCENARIOS[name], feature=self.expected_feature)
+
+    def assert_expected_name(self, scenario):
+        self.assertEqual(scenario.feature, self.expected_feature,
+                msg="sanity check")
+        self.assertEqual(scenario.name, self.expected)
+
+    def test_can_parse_feature_name(self):
+        self.assert_expected_name(self.parse_scenario("basic"))
+
+    def test_can_parse_scenario_with_lowercase_name(self):
+        self.assert_expected_name(self.parse_scenario("lower"))
+
+    def test_can_parse_scenario_with_uppercase_name(self):
+        self.assert_expected_name(self.parse_scenario("upper"))
+
+    def test_can_parse_scenario_with_weird_caps_name(self):
+        self.assert_expected_name(self.parse_scenario("leet"))

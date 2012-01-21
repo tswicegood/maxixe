@@ -2,9 +2,10 @@ from types import ModuleType
 
 
 class Scenario(object):
-    def __init__(self):
-        self.name = "Found feature"
+    def __init__(self, name, feature=None):
+        self.name = name
         self.steps = (1, 2, 3, )
+        self.feature = feature
 
 
 class FeatureType(ModuleType):
