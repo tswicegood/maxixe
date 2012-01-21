@@ -138,3 +138,5 @@ class ScenarioStepParsingTestCase(unittest.TestCase):
     def test_steps_are_what_is_parsed(self):
         scenario = self.get_parsed_scenario()
         self.assertEqual("Given that I have a few steps", scenario.steps[0].description)
+        self.assertEqual("When I parse that scenario", scenario.steps[1].description)
+        self.assertEqual("Then I have a full Scenario object", scenario.steps[2].description)
