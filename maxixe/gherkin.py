@@ -1,10 +1,16 @@
 from types import ModuleType
 
 
+class Step(object):
+	def __init__(self, description, scenario):
+		self.description = description
+		self.scenario = scenario
+
+
 class Scenario(object):
     def __init__(self, name, feature=None):
         self.name = name
-        self.steps = (1, 2, 3, )
+        self.steps = []
         self.feature = feature
 
 

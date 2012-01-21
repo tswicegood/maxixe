@@ -25,4 +25,7 @@ def parse_feature(feature_string):
 def parse_scenario(scenario_string, feature=None):
     scenario_lines = textwrap.dedent(scenario_string).split("\n")
     name = scenario_match.match(scenario_lines.pop(0)).groups()[0]
-    return gherkin.Scenario(name, feature)
+    scenario = gherkin.Scenario(name, feature)
+    scenario.steps = [gherkin.Step(a.strip(), scenario) for a in scenario_lines
+            if a.strip() != ""]
+    return scenario

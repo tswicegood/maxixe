@@ -122,3 +122,19 @@ class ScenarioNameParsingTestCase(unittest.TestCase):
 
     def test_can_parse_scenario_with_weird_caps_name(self):
         self.assert_expected_name(self.parse_scenario("leet"))
+
+
+class ScenarioStepParsingTestCase(unittest.TestCase):
+    expected_feature = parser.parse_feature(FEATURES["basic"])
+
+    def get_parsed_scenario(self):
+        scenario = parser.parse_scenario(SCENARIOS["basic"], feature=self.expected_feature)
+        return scenario
+
+    def test_can_parse_steps(self):
+        scenario = self.get_parsed_scenario()
+        self.assertEqual(3, len(scenario.steps))
+
+    def test_steps_are_what_is_parsed(self):
+        scenario = self.get_parsed_scenario()
+        self.assertEqual("Given that I have a few steps", scenario.steps[0].description)
