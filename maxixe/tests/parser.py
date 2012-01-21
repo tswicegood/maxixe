@@ -140,3 +140,15 @@ class ScenarioStepParsingTestCase(unittest.TestCase):
         self.assertEqual("Given that I have a few steps", scenario.steps[0].description)
         self.assertEqual("When I parse that scenario", scenario.steps[1].description)
         self.assertEqual("Then I have a full Scenario object", scenario.steps[2].description)
+
+    def test_steps_are_all_marked_as_not_run_by_default(self):
+        scenario = self.get_parsed_scenario()
+        for step in scenario.steps:
+            self.assertFalse(step.has_run,
+                    msg="Step [%s] has been run?" % step.description)
+
+    def test_steps_are_marked_as_not_runnable_by_default(self):
+        scenario = self.get_parsed_scenario()
+        for step in scenario.steps:
+            self.assertFalse(step.runnable,
+                    msg="Step [%s] is runnable?" % step.description)
