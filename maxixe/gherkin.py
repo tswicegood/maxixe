@@ -1,5 +1,7 @@
 from types import ModuleType
 
+from . import utils
+
 
 class Step(object):
     def __init__(self, description, scenario):
@@ -12,18 +14,22 @@ class Step(object):
 
     @property
     def runnable(self):
-        return False
+        return utils.has_matching_step(self)
 
 
 class Scenario(object):
-    def __init__(self, name, feature=None):
+    def __init__(self, name, feature):
         self.name = name
         self.steps = []
         self.feature = feature
 
+    @property
+    def runnable(self):
+        return all([a.runnable for a in self.steps])
+
 
 class FeatureType(ModuleType):
-    def __init__(self, name, description, scenarios):
+    def __init__(self, name, description):
         self.name = name
         self.description = description
-        self.scenarios = scenarios
+        self.scenarios = []

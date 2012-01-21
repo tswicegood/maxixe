@@ -18,11 +18,12 @@ def parse_feature(feature_string):
         if l == "":
             break
         description.append(l)
-    scenarios = [parse_scenario(a) for a in scenario_strings]
-    return gherkin.FeatureType(name, "\n".join(description), scenarios)
+    feature = gherkin.FeatureType(name, "\n".join(description))
+    feature.scenarios = [parse_scenario(a, feature) for a in scenario_strings]
+    return feature
 
 
-def parse_scenario(scenario_string, feature=None):
+def parse_scenario(scenario_string, feature):
     scenario_lines = textwrap.dedent(scenario_string).split("\n")
     name = scenario_match.match(scenario_lines.pop(0)).groups()[0]
     scenario = gherkin.Scenario(name, feature)

@@ -20,7 +20,7 @@ class FeatureFinderTestCase(unittest.TestCase):
 
     def test_has_a_scenario_list_with_length_of_scenarios(self):
         from maxixe.features import basics
-        self.assertEqual(len(basics.scenarios), 1)
+        self.assertEqual(len(basics.scenarios), 2)
 
     def test_scenario_is_fleshed_out(self):
         import maxixe
@@ -33,3 +33,11 @@ class FeatureFinderTestCase(unittest.TestCase):
     def test_feature_has_correct_parent_module(self):
         from maxixe.features import basics
         self.assertEqual(basics.__module__, "maxixe.features")
+
+    def test_first_scenario_is_runnable(self):
+        from maxixe.features import basics
+        self.assertTrue(basics.scenarios[0].runnable)
+
+    def test_second_scenario_is_not_runnable(self):
+        from maxixe.features import basics
+        self.assertFalse(basics.scenarios[1].runnable)

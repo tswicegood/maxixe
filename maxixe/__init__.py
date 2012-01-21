@@ -35,6 +35,7 @@ class FeatureLoader(object):
         with open(self.feature) as f:
             mod = parser.parse_feature(f.read())
             setattr(mod, "__module__", fullname.rsplit(".", 1)[0])
+            setattr(mod, "__path__", [os.path.dirname(self.feature), ])
             return mod
 
 
