@@ -30,6 +30,8 @@ class Scenario(object):
 
 class FeatureType(ModuleType):
     def __init__(self, name, description):
+        if not hasattr(self, "__path__"):
+            self.__path__ = []
         self.name = name
         self.description = description
         self.scenarios = []

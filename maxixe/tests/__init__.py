@@ -7,5 +7,5 @@ from maxixe.tests import utils
 
 suite = unittest.TestSuite()
 suite.addTests(unittest.TestLoader().loadTestsFromModule(loader))
-# suite.addTests(unittest.TestLoader().loadTestsFromModule(parser))
-# suite.addTests(unittest.TestLoader().loadTestsFromModule(utils))
+suite.addTests(unittest.TestLoader().loadTestsFromModule(parser))
+suite.addTests(unittest.TestLoader().loadTestsFromModule(utils))

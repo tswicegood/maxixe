@@ -1,5 +1,7 @@
 import imp
 
+from . import registry
+
 
 def module_to_feature(module):
     return "%s.feature" % "/".join(module.split(".")[-1:])
@@ -8,7 +10,12 @@ def module_to_feature(module):
 def has_matching_step(step):
     # TODO: must load .steps, register all matching, then check those
     try:
-        imp.find_module("steps", step.scenario.feature.__path__)
-        return True
+        args = imp.find_module("steps", step.scenario.feature.__path__)
+        if args:
+            steps_mod = "%s.steps" % step.scenario.feature.__name__
+            imp.load_module(steps_mod, *args)
+            if registry.find(step):
+                return True
     except ImportError, e:
-        return False
+        pass
+    return False

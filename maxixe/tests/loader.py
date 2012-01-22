@@ -32,7 +32,7 @@ class FeatureFinderTestCase(unittest.TestCase):
 
     def test_feature_has_correct_parent_module(self):
         from maxixe.features import basics
-        self.assertEqual(basics.__module__, "maxixe.features")
+        self.assertEqual(basics.__name__, "maxixe.features")
 
     def test_first_scenario_is_runnable(self):
         from maxixe.features import basics
