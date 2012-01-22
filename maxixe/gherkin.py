@@ -3,6 +3,8 @@ from types import ModuleType
 from . import utils
 
 
+# TODO: add property for getting at function
+# TODO: add run function for executing
 class Step(object):
     def __init__(self, description, scenario):
         self.description = description
