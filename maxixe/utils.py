@@ -8,7 +8,6 @@ def module_to_feature(module):
 
 
 def has_matching_step(step):
-    # TODO: must load .steps, register all matching, then check those
     try:
         args = imp.find_module("steps", step.scenario.feature.__path__)
         if args:
