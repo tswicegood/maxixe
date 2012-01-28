@@ -11,6 +11,18 @@ class Step(object):
         self.scenario = scenario
 
     @property
+    def successful(self):
+        return False
+
+    @property
+    def skipped(self):
+        return False
+
+    @property
+    def failed(self):
+        return False
+
+    @property
     def has_run(self):
         return False
 
@@ -18,6 +30,8 @@ class Step(object):
     def runnable(self):
         return utils.has_matching_step(self)
 
+    def run(self):
+        pass
 
 class Scenario(object):
     def __init__(self, name, feature):
