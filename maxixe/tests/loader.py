@@ -1,3 +1,4 @@
+import os
 import unittest
 
 
@@ -20,7 +21,11 @@ class FeatureFinderTestCase(unittest.TestCase):
 
     def test_has_a_scenario_list_with_length_of_scenarios(self):
         from maxixe.features import basics
-        self.assertEqual(len(basics.scenarios), 3)
+        contents = open(os.path.join(basics.__path__[0],
+                "basics.feature")).read()
+        expected_scenarios = len([1 for a in contents.split("\n")
+                if a.strip().lower().startswith("scenario:")])
+        self.assertEqual(len(basics.scenarios), expected_scenarios)
 
     def test_scenario_is_fleshed_out(self):
         import maxixe
