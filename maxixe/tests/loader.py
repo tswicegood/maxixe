@@ -40,4 +40,4 @@ class FeatureFinderTestCase(unittest.TestCase):
 
     def test_second_scenario_is_not_runnable(self):
         from maxixe.features import basics
-        self.assertFalse(basics.scenarios[1].runnable)
+        self.assertTrue(basics.scenarios[1].runnable)
