@@ -27,7 +27,7 @@ class Scenario(object):
 
     @property
     def runnable(self):
-        return self.steps[0].runnable
+        return len(self.steps) >= 1 and self.steps[0].runnable
 
 
 class FeatureType(ModuleType):

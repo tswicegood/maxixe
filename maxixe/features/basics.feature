@@ -17,3 +17,5 @@ Feature: Importable features
     When I check to see to see if the scenario is runnable
     Then I am told it is not
     And I can access it as a module
+
+  Scenario: An empty scenario
