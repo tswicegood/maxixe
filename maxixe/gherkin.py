@@ -27,7 +27,7 @@ class Scenario(object):
 
     @property
     def runnable(self):
-        return any([a.runnable for a in self.steps])
+        return self.steps[0].runnable
 
 
 class FeatureType(ModuleType):

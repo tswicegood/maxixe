@@ -11,3 +11,9 @@ Feature: Importable features
     Given there is a feature
     When I import the feature
     Then I can see what steps are not runnable
+
+  Scenario: First step is not defined
+    Given I have a scenario with an undefined first step
+    When I check to see to see if the scenario is runnable
+    Then I am told it is not
+    And I can access it as a module
